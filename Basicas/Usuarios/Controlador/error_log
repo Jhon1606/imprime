@@ -1,0 +1,16 @@
+[24-Jan-2023 19:45:45 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ninaniac_imprime.usuarios' doesn't exist in /home/ninaniac/public_html/imprime/Basicas/Usuarios/Modelo/usuarios.php:20
+Stack trace:
+#0 /home/ninaniac/public_html/imprime/Basicas/Usuarios/Modelo/usuarios.php(20): PDOStatement->execute()
+#1 /home/ninaniac/public_html/imprime/Basicas/Usuarios/Controlador/login.php(9): usuarios->login('luisb', '291233')
+#2 {main}
+  thrown in /home/ninaniac/public_html/imprime/Basicas/Usuarios/Modelo/usuarios.php on line 20
+[27-Jan-2023 21:54:00 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/ninaniac/public_html/imprime/Basicas/Usuarios/Modelo/usuarios.php on line 114
+[27-Jan-2023 21:54:47 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/ninaniac/public_html/imprime/Basicas/Usuarios/Modelo/usuarios.php on line 114
+[30-Jan-2023 21:25:05 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/ninaniac/public_html/imprime/Basicas/Usuarios/Modelo/usuarios.php on line 114
+[31-Jan-2023 05:12:36 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/ninaniac/public_html/imprime/Basicas/Usuarios/Modelo/usuarios.php on line 114
+[31-Jan-2023 20:22:04 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/ninaniac/public_html/imprime/Basicas/Usuarios/Modelo/usuarios.php on line 114
+[01-Feb-2023 01:27:20 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/ninaniac/public_html/imprime/Basicas/Usuarios/Modelo/usuarios.php on line 114
+[14-Feb-2023 20:04:49 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/ninaniac/public_html/imprime/Basicas/Usuarios/Modelo/usuarios.php on line 114
+[15-Feb-2023 13:12:39 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/ninaniac/public_html/imprime/Basicas/Usuarios/Modelo/usuarios.php on line 114
+[15-Feb-2023 13:49:30 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/ninaniac/public_html/imprime/Basicas/Usuarios/Modelo/usuarios.php on line 114
+[25-Feb-2023 01:20:46 UTC] PHP Notice:  session_start(): A session had already been started - ignoring in /home/ninaniac/public_html/imprime/Basicas/Usuarios/Modelo/usuarios.php on line 114
