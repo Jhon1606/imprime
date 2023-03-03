@@ -133,7 +133,7 @@ class pedidos extends conexion{
 
     public function getPedidoPorNumero($numero_pedido){
         $rows=null;
-        $statement=$this->conexion->prepare("SELECT a.id, a.numero_pedido, a.fecha, b.nombre AS cliente, a.fecha_entrega 
+        $statement=$this->conexion->prepare("SELECT a.id, a.numero_pedido, a.fecha, b.nombre AS cliente, a.fecha_entrega, a.observaciones 
                                             FROM pedido AS a 
                                             INNER JOIN cliente AS b ON a.cliente = b.id_cliente 
                                             WHERE numero_pedido = :numero_pedido");
