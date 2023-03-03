@@ -9,7 +9,7 @@ $inputNumPedido=0;
 
 if ($InformacionNumPedido != null) {
     foreach ($InformacionNumPedido as $InfoNumPedido) {
-        $inputNumPedido = $InfoNumPedido["valor"] ;
+        $inputNumPedido = $InfoNumPedido["valor"];
     }
 } 
 

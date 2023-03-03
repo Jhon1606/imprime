@@ -57,7 +57,6 @@ class producto extends conexion{
             create_flash_message("Exitoso", "Registro exitoso","success");
             header('Location: ../Vista/insumo.php');
         }else{
-            
             header('Location: ../Vista/index.php');
         }
     }

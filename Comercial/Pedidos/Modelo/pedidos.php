@@ -9,13 +9,12 @@ class pedidos extends conexion{
         $this->conexion=parent::__construct();
     }   
 
-    public function add($numero_pedido,$fecha,$cliente,$fecha_aprobado,$fecha_entrega,$observaciones,$usuario){
-        $statement=$this->conexion->prepare("INSERT INTO pedido (numero_pedido,fecha,cliente,fecha_aprobado,fecha_entrega,observaciones,usuario)
-                                            VALUES(:numero_pedido,:fecha,:cliente,:fecha_aprobado,:fecha_entrega,:observaciones,:usuario)");
+    public function add($numero_pedido,$cliente,$fecha,$fecha_entrega,$observaciones,$usuario){
+        $statement=$this->conexion->prepare("INSERT INTO pedido (numero_pedido,cliente,fecha,fecha_entrega,observaciones,usuario)
+                                            VALUES(:numero_pedido,:cliente,:fecha,:fecha_entrega,:observaciones,:usuario)");
         $statement->bindParam(':numero_pedido',$numero_pedido);
-        $statement->bindParam(':fecha',$fecha);
         $statement->bindParam(':cliente',$cliente);
-        $statement->bindParam(':fecha_aprobado',$fecha_aprobado);
+        $statement->bindParam(':fecha',$fecha);
         $statement->bindParam(':fecha_entrega',$fecha_entrega);
         $statement->bindParam(':observaciones',$observaciones);
         $statement->bindParam(':usuario',$usuario);
@@ -28,9 +27,11 @@ class pedidos extends conexion{
         }
     }
 
-    public function addPrecio($producto,$cantidad,$precio_venta){
-        $statement=$this->conexion->prepare("INSERT INTO pedido_detalle (producto,cantidad,precio_venta)
-                                            VALUES(:producto,:cantidad,:precio_venta)");
+    public function addDetalle($id_pedido,$numero_pedido,$producto,$cantidad,$precio_venta){
+        $statement=$this->conexion->prepare("INSERT INTO pedido_detalle (id_pedido,numero_pedido,producto,cantidad,precio_venta)
+                                            VALUES(:id_pedido,:numero_pedido,:producto,:cantidad,:precio_venta)");
+        $statement->bindParam(':id_pedido',$id_pedido);
+        $statement->bindParam(':numero_pedido',$numero_pedido);
         $statement->bindParam(':producto',$producto);
         $statement->bindParam(':cantidad',$cantidad);
         $statement->bindParam(':precio_venta',$precio_venta);
@@ -55,9 +56,19 @@ class pedidos extends conexion{
   
     public function get(){
         $rows=null;
-        $statement=$this->conexion->prepare("SELECT b.nombre AS producto, a.cantidad, a.precio_venta, (a.cantidad* a.precio_venta) as totalpedido
+        $statement=$this->conexion->prepare("SELECT a.id_detalle, b.nombre AS producto, a.cantidad, a.precio_venta, (a.cantidad* a.precio_venta) as totalpedido
                                              FROM pedido_detalle AS a 
                                              INNER JOIN producto AS b ON a.producto = b.id_producto");
+        $statement->execute();
+        while($result=$statement->fetch()){
+            $rows[]=$result;
+        }
+        return $rows;
+    }
+
+    public function getPedido(){
+        $rows=null;
+        $statement=$this->conexion->prepare("SELECT * FROM pedido");
         $statement->execute();
         while($result=$statement->fetch()){
             $rows[]=$result;
@@ -120,6 +131,20 @@ class pedidos extends conexion{
         return $rows;
     }    
 
+    public function getPedidoPorNumero($numero_pedido){
+        $rows=null;
+        $statement=$this->conexion->prepare("SELECT a.id, a.numero_pedido, a.fecha, b.nombre AS cliente, a.fecha_entrega 
+                                            FROM pedido AS a 
+                                            INNER JOIN cliente AS b ON a.cliente = b.id_cliente 
+                                            WHERE numero_pedido = :numero_pedido");
+        $statement->bindParam(':numero_pedido',$numero_pedido);
+        $statement->execute();
+        while($result=$statement->fetch()){
+            $rows[]=$result;
+        }
+        return $rows;
+    }
+
     public function update($id,$identificacion,$nombre,$marca,$telefono,$correo,$direccion,$departamento,$ciudad){
         $statement=$this->conexion->prepare("UPDATE cliente SET identificacion=:identificacion, nombre=:nombre, marca=:marca,
                                             telefono=:telefono, correo=:correo, direccion=:direccion, departamento=:departamento, 
@@ -145,7 +170,7 @@ class pedidos extends conexion{
     }
 
     public function delete($id){
-        $statement=$this->conexion->prepare("DELETE FROM cliente WHERE id_cliente = :id");
+        $statement=$this->conexion->prepare("DELETE FROM pedido_detalle WHERE id_detalle = :id");
         $statement->bindParam(":id",$id);
         if($statement->execute()){
             create_flash_message("Exitoso", "Eliminado con exito","success");
