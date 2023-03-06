@@ -378,8 +378,12 @@ $('#nuevoPedido').click(() => {
         url: "../../../General/Queries/Comercial/buscarNumPedido.php",
         type: "POST",
         dataType: "HTML",
-        success: function(inputNumPedido){
-            $('#numero_pedido').val(inputNumPedido);
+        success: function(numPedido){
+            alert(numPedido);
+            $('#numero_pedido').val(numPedido);
+            $('#cliente').val("");
+            $('#fecha_entrega').val("");
+            $('#observaciones').val("");
         }
     });    
 });

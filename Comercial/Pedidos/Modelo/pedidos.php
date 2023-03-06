@@ -44,6 +44,19 @@ class pedidos extends conexion{
         }
     }
 
+    // public function addConsecutivo($valor){
+    //     $statement=$this->conexion->prepare("INSERT INTO consecutivos (valor)
+    //                                         VALUES(:valor)");
+    //     $statement->bindParam(':valor',$valor);
+    //     if($statement->execute()){
+    //         create_flash_message("Exitoso", "Registro exitoso","success");
+    //         header('Location: ../Vista/index.php');
+    //     }else{
+    //         create_flash_message("Error", "Error al registrar","error");
+    //         header('Location: ../Vista/index.php');
+    //     }
+    // }
+
     public function existe($id){
         $statement = $this->conexion->prepare("SELECT COUNT(*) FROM pedido WHERE id = :id");
         $statement->bindParam(":id",$id);
@@ -130,6 +143,13 @@ class pedidos extends conexion{
         }
         return $rows;
     }    
+
+    public function Pedidos(){
+        $statement=$this->conexion->prepare("SELECT COUNT(*) FROM pedido");
+        $statement->execute();
+        $result = $statement->fetchColumn();
+        return $result;
+    }
 
     public function getPedidoPorNumero($numero_pedido){
         $rows=null;

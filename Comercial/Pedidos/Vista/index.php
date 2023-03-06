@@ -48,6 +48,7 @@ if (isset($_SESSION['Nombre'])) {
                     <!-- Begin Page Content -->
                     <div class="container-fluid">
                         <h2>Pedidos</h2>
+                        <form action="../Controlador/add.php" method="POST">
                             <?php
                                 if($pedidosNumeros != null){
                                     foreach($pedidosNumeros as $pedidosNumero){
@@ -71,7 +72,7 @@ if (isset($_SESSION['Nombre'])) {
                                 <div class="col mb-8">
                                     <label class="form-label" for="">Cliente</label>
                                     <select class="form-select" name="cliente" id="cliente" required="">
-                                        <option value=""><?php echo $clientePedido ?></option>
+                                        <option value="" ><?php echo $clientePedido ?></option>
                                         <?php
                                         $clientes = $modeloPedidos->getCliente();
                                         if ($clientes != null) {
@@ -86,18 +87,18 @@ if (isset($_SESSION['Nombre'])) {
                                 </div>
                                 <div class="col mb-2">
                                     <label class="form-label" for="">Fecha:</label>
-                                    <input class="form-control" name="fecha" value="<?php echo $fechaPedido ?>" type="date">
+                                    <input class="form-control" name="fecha" id="fecha" type="date" value="<?php echo $fechaPedido ?>">
                                 </div>
                                 <div class="col mb-2">
                                     <label class="form-label" for="">Fecha de entrega</label>
-                                    <input class="form-control" name="fecha_entrega" type="date" value="<?php echo $fechaEntregaPedido; ?>" required="">
+                                    <input class="form-control" name="fecha_entrega" id="fecha_entrega" type="date" value="<?php echo $fechaEntregaPedido; ?>" required="">
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col mb-10">
                                     <label class="form-label">Observaciones:</label>            
-                                    <textarea class="form-control" name="observaciones" required=""><?php echo $observacionesPedido ?></textarea> 
+                                    <textarea class="form-control" name="observaciones" id="observaciones" required=""><?php echo $observacionesPedido ?></textarea> 
 
                                 </div>
                                 <div class="col mb-2 my-5">
@@ -112,7 +113,7 @@ if (isset($_SESSION['Nombre'])) {
                             <div class="row">
                                 <div class="col mb-2">
                                     <label class="form-label" for="">Numero</label>
-                                    <input class="form-control" name="numero_pedido" id="numero_pedido" type="text" value="<?php echo $num_pedido; ?>" readonly>  
+                                    <input class="form-control" name="numero_pedido" id="numero_pedido" type="text" readonly>  
                                 </div>
                                 
                                 <div class="col mb-8">
@@ -133,8 +134,8 @@ if (isset($_SESSION['Nombre'])) {
                                 </div>
                                 <div class="col mb-2">
                                     <label class="form-label" for="">Fecha:</label>
-                                    <?php $fecha = date('d-m-Y') ?>
-                                    <input class="form-control" name="fecha" value="<?php echo $fecha ?>" type="date">
+                                    <?php $fecha = date('Y-m-d') ?>
+                                    <input class="form-control" name="fecha" type="date" value="<?php echo $fecha ?>">
                                 </div>
                                 <div class="col mb-2">
                                     <label class="form-label" for="">Fecha de entrega</label>
