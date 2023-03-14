@@ -12,7 +12,7 @@ if ($_POST) {
     $usuario = $_POST['user'];
     
     $modeloPedidos->add($numero_pedido,$cliente,$fecha,$fecha_entrega,$observaciones,$usuario);
-    header('Location: ../Vista/index.php?numero_pedido='.$numero_pedido);
+    header('Location: ../Vista/index.php?numero_pedido='.$numero_pedido.'&fecha='.$fecha);
 
 } else{
     header('Location: ../Vista/index.php');

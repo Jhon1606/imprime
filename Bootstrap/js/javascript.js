@@ -379,11 +379,15 @@ $('#nuevoPedido').click(() => {
         type: "POST",
         dataType: "HTML",
         success: function(numPedido){
-            alert(numPedido);
             $('#numero_pedido').val(numPedido);
             $('#cliente').val("");
             $('#fecha_entrega').val("");
             $('#observaciones').val("");
+            $('#producto').val("");
+            $('#cantidad').val("");
+            $('#precio').val("");
+            $('#total').val("");
+            location.href ="../../../Comercial/Pedidos/Vista/index.php?numero_pedido="+numPedido;
         }
     });    
 });

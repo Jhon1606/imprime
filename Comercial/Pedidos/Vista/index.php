@@ -5,9 +5,10 @@ require_once('../../../Helpers/alert.php');
 require_once('../Modelo/pedidos.php');
 
 $modeloPedidos = new pedidos();
-$pedidos = $modeloPedidos->get();
 $usuario = $_SESSION['Usuario'];
 $num_pedido = $_GET['numero_pedido'];
+$fechaP = $_GET['fecha'];
+$pedidos = $modeloPedidos->get($num_pedido);
 $pedidosNumeros = $modeloPedidos->getPedidoPorNumero($num_pedido);
 if (isset($_SESSION['Nombre'])) {
 ?>
@@ -87,7 +88,18 @@ if (isset($_SESSION['Nombre'])) {
                                 </div>
                                 <div class="col mb-2">
                                     <label class="form-label" for="">Fecha:</label>
+                                    <?php $fecha = date('Y-m-d');
+                                        if($fechaP){
+                                    ?>
                                     <input class="form-control" name="fecha" id="fecha" type="date" value="<?php echo $fechaPedido ?>">
+                                    <?php
+                                        }else{
+                                    ?>
+                                    <input class="form-control" name="fecha" type="date" value="<?php echo $fecha ?>">
+                                    <?php 
+                                        }
+                                    ?>
+                                    
                                 </div>
                                 <div class="col mb-2">
                                     <label class="form-label" for="">Fecha de entrega</label>
@@ -167,14 +179,14 @@ if (isset($_SESSION['Nombre'])) {
                                     <div class="row">
                                         <div class="col">
                                             <label class="form-label" for="">Producto:</label>
-                                            <select class="form-select" name="producto" onchange="cargarPrecio(this.value)" required="">
+                                            <select class="form-select" name="producto" id="producto" onchange="cargarPrecio(this.value)" required="">
                                                 <option value="">Seleccione</option>
                                                 <?php
                                                 $productos = $modeloPedidos->getProducto();
                                                 if ($productos != null) {
                                                     foreach ($productos as $producto) {
                                                 ?>
-                                                        <option value="<?php echo $producto['id_producto'] ?>"><?php echo $producto['nombre'] ?></option>
+                                                    <option value="<?php echo $producto['id_producto'] ?>"><?php echo $producto['nombre'] ?></option>
                                                 <?php
                                                     }
                                                 }
@@ -192,8 +204,21 @@ if (isset($_SESSION['Nombre'])) {
                                             <label class="form-label" for="">Total:</label>
                                             <input class="form-control" type="text" id="total" disabled>
                                         </div>
-                                        <input type="hidden" name="numero_pedido" value="<?php echo $num_pedido; ?>">
-                                        <input type="hidden" name="id_pedido" value="<?php echo $idPedido; ?>">
+                                        <?php 
+                                            if($fechaP) {
+                                        ?>
+                                            <input type="hidden" name="numero_pedido" value="<?php echo $num_pedido; ?>">
+                                            <input type="hidden" name="fecha_pedido" value="<?php echo $fechaP; ?>">
+                                            <input type="hidden" name="id_pedido" value="<?php echo $idPedido; ?>">
+                                        <?php 
+                                            }else{
+                                        ?>
+                                            <input type="hidden" name="numero_pedido" value="<?php echo $num_pedido; ?>">
+                                            <input type="hidden" name="id_pedido" value="<?php echo $idPedido; ?>">
+                                        <?php 
+                                            }
+                                        ?>
+                                        
                                         <div class="col">
                                             <div class="row">
                                                 <div class="col-5 mt-4">

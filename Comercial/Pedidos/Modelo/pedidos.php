@@ -67,11 +67,13 @@ class pedidos extends conexion{
         return false;
     }
   
-    public function get(){
+    public function get($numero_pedido){
         $rows=null;
         $statement=$this->conexion->prepare("SELECT a.id_detalle, b.nombre AS producto, a.cantidad, a.precio_venta, (a.cantidad* a.precio_venta) as totalpedido
                                              FROM pedido_detalle AS a 
-                                             INNER JOIN producto AS b ON a.producto = b.id_producto");
+                                             INNER JOIN producto AS b ON a.producto = b.id_producto
+                                             WHERE numero_pedido = :numero_pedido");
+        $statement->bindParam(':numero_pedido',$numero_pedido);
         $statement->execute();
         while($result=$statement->fetch()){
             $rows[]=$result;
@@ -132,17 +134,17 @@ class pedidos extends conexion{
         return $rows;
     }
 
-    public function BuscarNumPedido(){
-        $rows=null;
-        $codigo='PED';
-        $statement=$this->conexion->prepare("SELECT valor FROM consecutivos WHERE codigo = :id");
-        $statement->bindParam(':id', $codigo);
-        $statement->execute();
-        while($result=$statement->fetch()){
-            $rows[]=$result;
-        }
-        return $rows;
-    }    
+    // public function BuscarNumPedido(){
+    //     $rows=null;
+    //     $codigo='PED';
+    //     $statement=$this->conexion->prepare("SELECT valor FROM consecutivos WHERE codigo = :id");
+    //     $statement->bindParam(':id', $codigo);
+    //     $statement->execute();
+    //     while($result=$statement->fetch()){
+    //         $rows[]=$result;
+    //     }
+    //     return $rows;
+    // }    
 
     public function Pedidos(){
         $statement=$this->conexion->prepare("SELECT COUNT(*) FROM pedido");
