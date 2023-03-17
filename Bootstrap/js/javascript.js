@@ -394,7 +394,10 @@ $('#nuevoPedido').click(() => {
 
 $('#buscarPedido').click(() => {
     $("#numero_pedido").prop("readonly", false);
-    var num_pedido = $('#numero_pedido').val();
+})
+
+function filtroPedido(num_pedido){
+    console.log(num_pedido);
     $.ajax({
         url: "../../../General/Queries/Comercial/infopedido.php",
         type: "POST",
@@ -414,7 +417,7 @@ $('#buscarPedido').click(() => {
         $("#observaciones").val(observaciones);
         location.href ="../../../Comercial/Pedidos/Vista/index.php?numero_pedido="+num_pedido;
     }); 
-})
+}
 
 // function filtroPedido(){
 //     var valor = $('#numero_pedido').val();

@@ -67,7 +67,7 @@ if (isset($_SESSION['Nombre'])) {
                             <div class="row">
                                 <div class="buscar col mb-2">
                                     <label class="form-label" for="">Numero</label>
-                                    <input class="form-control" name="numero_pedido" id="numero_pedido" type="text" value="<?php echo $num_pedido; ?>" readonly>  
+                                    <input class="form-control" name="numero_pedido" id="numero_pedido" type="text" onchange="filtroPedido(this.value)" value="<?php echo $num_pedido; ?>" readonly>  
                                 </div>
                                 
                                 <div class="col mb-8">
@@ -125,7 +125,7 @@ if (isset($_SESSION['Nombre'])) {
                             <div class="row">
                                 <div class="col mb-2">
                                     <label class="form-label" for="">Numero</label>
-                                    <input class="form-control" name="numero_pedido" id="numero_pedido" type="text" readonly>  
+                                    <input class="form-control" name="numero_pedido" id="numero_pedido" onchange="filtroPedido(this.value)" type="text" readonly>  
                                 </div>
                                 
                                 <div class="col mb-8">
