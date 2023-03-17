@@ -57,9 +57,9 @@ class pedidos extends conexion{
     //     }
     // }
 
-    public function existe($id){
-        $statement = $this->conexion->prepare("SELECT COUNT(*) FROM pedido WHERE id = :id");
-        $statement->bindParam(":id",$id);
+    public function existe($numero_pedido){
+        $statement = $this->conexion->prepare("SELECT COUNT(*) FROM pedido WHERE numero_pedido = :numero_pedido");
+        $statement->bindParam(":numero_pedido",$numero_pedido);
         $statement->execute();
         if($statement->fetchColumn()>0){
             return true;
@@ -178,28 +178,23 @@ class pedidos extends conexion{
         return $rows;
     }
 
-    public function update($id,$identificacion,$nombre,$marca,$telefono,$correo,$direccion,$departamento,$ciudad){
-        $statement=$this->conexion->prepare("UPDATE cliente SET identificacion=:identificacion, nombre=:nombre, marca=:marca,
-                                            telefono=:telefono, correo=:correo, direccion=:direccion, departamento=:departamento, 
-                                            ciudad=:ciudad WHERE id_cliente = :id");
+    public function update($numero_pedido,$cliente,$fecha,$fecha_entrega,$observaciones){
+        $statement=$this->conexion->prepare("UPDATE pedido SET cliente=:cliente, fecha=:fecha, fecha_entrega=:fecha_entrega,
+                                            observaciones=:observaciones WHERE numero_pedido = :numero_pedido");
 
-         $statement->bindParam(':id',$id);
-         $statement->bindParam(':identificacion',$identificacion);
-         $statement->bindParam(':nombre',$nombre);
-         $statement->bindParam(':marca',$marca);
-         $statement->bindParam(':telefono',$telefono);
-         $statement->bindParam(':correo',$correo);
-         $statement->bindParam(':direccion',$direccion);
-         $statement->bindParam(':departamento',$departamento);
-         $statement->bindParam(':ciudad',$ciudad);
-         
-         if($statement->execute()){
-            create_flash_message("Exitoso", "Registro exitoso","success");
+        $statement->bindParam(':numero_pedido',$numero_pedido);
+        $statement->bindParam(':cliente',$cliente);
+        $statement->bindParam(':fecha',$fecha);
+        $statement->bindParam(':fecha_entrega',$fecha_entrega);
+        $statement->bindParam(':observaciones',$observaciones);
+        
+        if($statement->execute()){
+            create_flash_message("Exitoso", "Actualizado con éxito","success");
+            header('Location: ../Vista/index.php?numero_pedido='.$numero_pedido.'&fecha='.$fecha);
+        }else{
+            create_flash_message("Error", "Error al actualizar","error");
             header('Location: ../Vista/index.php');
-         }else{
-            create_flash_message("Error", "Error al editar","error");
-            header('Location: ../Vista/index.php');
-         }
+        }
     }
 
     public function delete($id){

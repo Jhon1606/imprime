@@ -412,6 +412,7 @@ $('#buscarPedido').click(() => {
         $("#fecha").val(fecha);
         $("#fecha_entrega").val(fecha_entrega);
         $("#observaciones").val(observaciones);
+        location.href ="../../../Comercial/Pedidos/Vista/index.php?numero_pedido="+num_pedido;
     }); 
 })
 
