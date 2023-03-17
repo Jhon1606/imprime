@@ -65,7 +65,7 @@ if (isset($_SESSION['Nombre'])) {
                                 if($num_pedido){
                             ?>
                             <div class="row">
-                                <div class="col mb-2">
+                                <div class="buscar col mb-2">
                                     <label class="form-label" for="">Numero</label>
                                     <input class="form-control" name="numero_pedido" id="numero_pedido" type="text" value="<?php echo $num_pedido; ?>" readonly>  
                                 </div>
@@ -73,7 +73,7 @@ if (isset($_SESSION['Nombre'])) {
                                 <div class="col mb-8">
                                     <label class="form-label" for="">Cliente</label>
                                     <select class="form-select" name="cliente" id="cliente" required="">
-                                        <option value="" ><?php echo $clientePedido ?></option>
+                                        <option value=""><?php echo $clientePedido ?></option>
                                         <?php
                                         $clientes = $modeloPedidos->getCliente();
                                         if ($clientes != null) {
@@ -95,7 +95,7 @@ if (isset($_SESSION['Nombre'])) {
                                     <?php
                                         }else{
                                     ?>
-                                    <input class="form-control" name="fecha" type="date" value="<?php echo $fecha ?>">
+                                    <input class="form-control" name="fecha" id="fecha" type="date" value="<?php echo $fecha ?>">
                                     <?php 
                                         }
                                     ?>
@@ -111,12 +111,12 @@ if (isset($_SESSION['Nombre'])) {
                                 <div class="col mb-10">
                                     <label class="form-label">Observaciones:</label>            
                                     <textarea class="form-control" name="observaciones" id="observaciones" required=""><?php echo $observacionesPedido ?></textarea> 
-
                                 </div>
                                 <div class="col mb-2 my-5">
                                     <input type="hidden" value="<?php echo $usuario ?>" name="user">
                                     <button type="button" class="btn btn-info" id='nuevoPedido'>Nuevo Pedido</button>
                                     <button type="submit" class="btn btn-success">Guardar Pedido</button>
+                                    <button type="button" class="btn btn-primary" id='buscarPedido'>Buscar</button>
                                 </div>
                             </div>
                             <?php 
@@ -147,24 +147,25 @@ if (isset($_SESSION['Nombre'])) {
                                 <div class="col mb-2">
                                     <label class="form-label" for="">Fecha:</label>
                                     <?php $fecha = date('Y-m-d') ?>
-                                    <input class="form-control" name="fecha" type="date" value="<?php echo $fecha ?>">
+                                    <input class="form-control" name="fecha" id="fecha" type="date" value="<?php echo $fecha ?>">
                                 </div>
                                 <div class="col mb-2">
                                     <label class="form-label" for="">Fecha de entrega</label>
-                                    <input class="form-control" name="fecha_entrega" type="date" required="">
+                                    <input class="form-control" name="fecha_entrega" id="fecha_entrega" type="date" required="">
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col mb-10">
                                     <label class="form-label">Observaciones:</label>            
-                                    <textarea class="form-control" name="observaciones" required=""></textarea> 
+                                    <textarea class="form-control" name="observaciones" id="observaciones" required=""></textarea> 
 
                                 </div>
                                 <div class="col mb-2 my-5">
                                     <input type="hidden" value="<?php echo $usuario ?>" name="user">
                                     <button type="button" class="btn btn-info" id='nuevoPedido'>Nuevo Pedido</button>
                                     <button type="submit" class="btn btn-success">Guardar Pedido</button>
+                                    <button type="button" class="btn btn-primary" id='buscarPedido'>Buscar</button>
                                 </div>
                             </div>
                             <?php 

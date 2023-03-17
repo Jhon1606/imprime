@@ -91,6 +91,17 @@ class pedidos extends conexion{
         return $rows;
     }
 
+    public function filtroPedido($numero_pedido){
+        $rows=null;
+        $statement=$this->conexion->prepare("SELECT * FROM pedido WHERE numero_pedido = :numero_pedido");
+        $statement->bindParam(':numero_pedido',$numero_pedido);
+        $statement->execute();
+        while($result=$statement->fetch()){
+            $rows[]=$result;
+        }
+        return $rows;
+    }
+
     public function getCliente(){
         $rows=null;
         $statement=$this->conexion->prepare("SELECT * FROM cliente");

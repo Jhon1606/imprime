@@ -349,7 +349,7 @@ function cargarPrecio(producto){
     $.ajax({
         url: "../../../General/Queries/Comercial/filtroprecio.php",
         type: "POST",
-        dataType: "HTML",
+        dataType: "JSON",
         data: {producto: producto},
         success: function(selectPrecio){
             $('#crearPrecio').html(selectPrecio);
@@ -391,6 +391,34 @@ $('#nuevoPedido').click(() => {
         }
     });    
 });
+
+$('#buscarPedido').click(() => {
+    $("#numero_pedido").prop("readonly", false);
+    var num_pedido = $('#numero_pedido').val();
+    $.ajax({
+        url: "../../../General/Queries/Comercial/infopedido.php",
+        type: "POST",
+        dataType: "JSON",
+        data: {num_pedido: num_pedido}
+    })
+    .done(function(info){
+        var cliente = info[0].cliente;
+        var fecha = info[0].fecha;
+        var fecha_entrega = info[0].fecha_entrega;
+        var observaciones = info[0].observaciones;
+
+        $("#numero_pedido").val(num_pedido);
+        $("#cliente").val(cliente);
+        $("#fecha").val(fecha);
+        $("#fecha_entrega").val(fecha_entrega);
+        $("#observaciones").val(observaciones);
+    }); 
+})
+
+// function filtroPedido(){
+//     var valor = $('#numero_pedido').val();
+//     alert(valor);
+// }
 
 // ----------------- Cerrar Modales ----------------------
 
