@@ -11,9 +11,13 @@ if ($_POST) {
     $cantidad = $_POST['cantidad'];
     $precio = $_POST['precio'];
     // $total = $_POST['total'];
-    
-    $modeloPedidos->addDetalle($id_pedido,$numero_pedido,$producto,$cantidad,$precio);
-    header('Location: ../Vista/index.php?numero_pedido='.$numero_pedido.'&fecha='.$fecha_pedido);
+    if(empty($numero_pedido)){ // empty para validar que el campo no esté vacio
+        create_flash_message("Error", "Número de pedido no existe","error");
+        header('Location: ../Vista/index.php');
+    } else{
+        $modeloPedidos->addDetalle($id_pedido,$numero_pedido,$producto,$cantidad,$precio);
+        header('Location: ../Vista/index.php?numero_pedido='.$numero_pedido.'&fecha='.$fecha_pedido);
+    }
 } else{
     header('Location: ../Vista/index.php');
 }

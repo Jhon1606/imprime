@@ -349,7 +349,7 @@ function cargarPrecio(producto){
     $.ajax({
         url: "../../../General/Queries/Comercial/filtroprecio.php",
         type: "POST",
-        dataType: "JSON",
+        dataType: "HTML",
         data: {producto: producto},
         success: function(selectPrecio){
             $('#crearPrecio').html(selectPrecio);
@@ -397,7 +397,6 @@ $('#buscarPedido').click(() => {
 })
 
 function filtroPedido(num_pedido){
-    console.log(num_pedido);
     $.ajax({
         url: "../../../General/Queries/Comercial/infopedido.php",
         type: "POST",
@@ -415,14 +414,9 @@ function filtroPedido(num_pedido){
         $("#fecha").val(fecha);
         $("#fecha_entrega").val(fecha_entrega);
         $("#observaciones").val(observaciones);
-        location.href ="../../../Comercial/Pedidos/Vista/index.php?numero_pedido="+num_pedido;
+        location.href ="../../../Comercial/Pedidos/Vista/index.php?numero_pedido="+num_pedido+"&fecha="+fecha;
     }); 
 }
-
-// function filtroPedido(){
-//     var valor = $('#numero_pedido').val();
-//     alert(valor);
-// }
 
 // ----------------- Cerrar Modales ----------------------
 
